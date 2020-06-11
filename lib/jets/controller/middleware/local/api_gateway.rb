@@ -16,7 +16,7 @@ class Jets::Controller::Middleware::Local
         "httpMethod" => @env['REQUEST_METHOD'], # GET
         "headers" => request_headers,
         "queryStringParameters" => query_string_parameters,
-        "pathParameters" => @route.extract_parameters(path),
+        "pathParameters" => @route.extract_parameters(path).map { |k, str| [k, CGI.unescape(str)] }.to_h,
         "stageVariables" => nil,
         "requestContext" => {},
         "body" => get_body,
